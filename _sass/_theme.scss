@@ -44,14 +44,14 @@ body {
 }
 
 .feature {
-  padding-bottom: .4rem;
+  padding-bottom: 2.4rem;
   margin-bottom: 1.6rem;
   text-align: center;
   background: $featureBackgroundColour;
   background-size: cover;
   background-position: center;
   .container {
-    min-height: 35vh;
+    min-height: 40vh;
     max-width: 60%;
     @include flex-direction(column);
     @include justify-content(center);
