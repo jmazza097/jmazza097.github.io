@@ -14,6 +14,13 @@ body {
   margin: 0 auto;
 }
 
+#click-to-jump-to {
+  padding-top: 5%;
+}
+#jack-mazzas-blog{
+  padding-top: 3%;
+}
+
 
 // Header, feature and footer
 .header,
@@ -54,7 +61,7 @@ body {
     min-height: 40vh;
     max-width: 60%;
     @include flex-direction(column);
-    @include justify-content(center);
+    @include justify-content(unset);
   }
 }
 
