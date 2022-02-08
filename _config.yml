@@ -38,7 +38,7 @@ plugins:
 remote_theme: daviddarnes/alembic@main
 
 # 3. Gem settings
-paginate: 2 # jekyll-paginate > items per page
+paginate: 5 # jekyll-paginate > items per page
 paginate_path: blog/page:num # jekyll-paginate > blog page
 author: JackMazza # jekyll-seo-tag > default author
 social: # jekyll-seo-tag > social overrides
@@ -58,17 +58,18 @@ sass:
   style: compressed # Style compression
 permalink: pretty  # Permalink style (/YYYY/MM/DD/page-name/)
 excerpt_separator: <!-- more --> # Marks end of excerpt in posts
-timezone: Europe/London # Timezone for blog posts and alike
+timezone: United States # Timezone for blog posts and alike
 
 # 5. Collections
 collections:
   posts:
     title: Posts # Needed for Siteleaf
     output: true
-    description: "My thoughts and ideas" # The post list page content
     feature_text: |
-      Welcome to the blog
+      ## Welcome to the Blog
+    #description: "A collection of my posts" # The post list page content
     feature_image: "https://picsum.photos/2560/600?image=866"
+    aside: true
 
 # 6. Jekyll collections settings
 defaults:
@@ -95,7 +96,7 @@ encoding: utf-8 # Make sure the encoding is right
 lang: en-GB # Set the site language
 title: "Jack Mazza's Blog" # Site name or title, also used in jekyll-seo-tag
 logo: "/assets/logos/logo@96px.png" # Site logo, also used in jekyll-seo-tag
-description: "A tech and DIY guy's blog for posting fun projects, life, and work updates" # Site description and default description, also used in jekyll-seo-tag
+description: "Jack Mazza's blog for posting projects about, his s2000, computers, life, and work updates." # Site description and default description, also used in jekyll-seo-tag
 url: "https://jmazza097.github.io/" # Site url, also used in jekyll-seo-tag
 baseurl: ""
 repo: "https://github.com/jmazza097/jmazza097.github.io"
@@ -123,14 +124,10 @@ favicons: # Favicons are also used in the manifest file. Syntax is 'size: path'
 navigation_header:
 - title: Home
   url: /
-- title: Elements
-  url: /elements/
 - title: Blog
   url: /blog/
 - title: Categories
   url: /categories/
-- title: Search
-  url: /search/
 navigation_footer:
 - title: Created by Jack Mazza
   #url: https://darn.es
@@ -139,6 +136,8 @@ social_links: # Appears in sidebar. Set the urls then uncomment and comment out 
   #Twitter: https://twitter.com/DavidDarnes
   LinkedIn: https://www.linkedin.com/in/daviddarnes
   GitHub: https://github.com/daviddarnes
+  Facebook: https://www.facebook.com/jackmazza097/
+  Twitch: https://www.twitch.tv/tonycannoli1
   #link: https://darn.es
   #RSS: /feed.xml
 
