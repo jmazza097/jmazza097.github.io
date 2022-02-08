@@ -1,7 +1,7 @@
 ---
 title: History of the Alembic
 categories:
-- History
+- gamingsetup
 - External sources
 feature_text: |
   The History of the Alembic tool
