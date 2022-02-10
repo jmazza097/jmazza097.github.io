@@ -68,7 +68,7 @@ collections:
     feature_text: |
       ## Welcome to the Blog
     #description: "A collection of my posts" # The post list page content
-    feature_image: "https://picsum.photos/2560/600?image=866"
+    feature_image: "/assets/pictures/image_e3d98cc0-4e08-41ff-8246-f0ee0f9cc87e20200604_191229.jpg"
     aside: true
 
 # 6. Jekyll collections settings
@@ -136,7 +136,7 @@ social_links: # Appears in sidebar. Set the urls then uncomment and comment out 
   #Twitter: https://twitter.com/DavidDarnes
   LinkedIn: https://www.linkedin.com/in/daviddarnes
   GitHub: https://github.com/daviddarnes
-  Facebook: https://www.facebook.com/jackmazza097/
+  #Facebook: https://www.facebook.com/jackmazza097/
   Twitch: https://www.twitch.tv/tonycannoli1
   #link: https://darn.es
   #RSS: /feed.xml
