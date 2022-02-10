@@ -97,8 +97,7 @@ lang: en-GB # Set the site language
 title: "Jack Mazza's Blog" # Site name or title, also used in jekyll-seo-tag
 logo: "/assets/logos/logo@96px.png" # Site logo, also used in jekyll-seo-tag
 description: "Jack Mazza's blog for posting projects about, his s2000, computers, life, and work updates." # Site description and default description, also used in jekyll-seo-tag
-url: "https://jmazza097.github.io/" # Site url, also used in jekyll-seo-tag
-baseurl: ""
+url: "https://jackmazza.xyz" # Site url, also used in jekyll-seo-tag
 repo: "https://github.com/jmazza097/jmazza097.github.io"
 email: "jmazza097@gmail.com"
 # disqus: "alembic-1" # Blog post comments, uncomment the option and set the site ID from your Disqus account
