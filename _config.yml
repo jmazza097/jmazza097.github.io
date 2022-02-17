@@ -96,7 +96,7 @@ encoding: utf-8 # Make sure the encoding is right
 lang: en-GB # Set the site language
 title: "Jack Mazza's Blog" # Site name or title, also used in jekyll-seo-tag
 logo: "/assets/logos/logo@96px.png" # Site logo, also used in jekyll-seo-tag
-description: "Jack Mazza's blog for posting projects about, his s2000, computers, life, and work updates." # Site description and default description, also used in jekyll-seo-tag
+description: "Jack Mazza's blog for posting projects about, his cars, computers, life, and work updates." # Site description and default description, also used in jekyll-seo-tag
 url: "https://jackmazza.xyz" # Site url, also used in jekyll-seo-tag
 repo: "https://github.com/jmazza097/jmazza097.github.io"
 email: "jmazza097@gmail.com"
