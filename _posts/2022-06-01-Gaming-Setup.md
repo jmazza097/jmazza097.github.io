@@ -3,7 +3,7 @@ title: Story of my Gaming Setup
 aside: true
 categories:
 - Gaming Setup
-feature_image: "https://picsum.photos/2560/600?image=872"
+feature_image: "/assets/pictures/DSC_0023.jpg"
 ---
 
 My Gaming Setup:

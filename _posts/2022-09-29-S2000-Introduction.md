@@ -1,10 +1,9 @@
 ---
-title: S2000 Introduction aside: true categories:
+title: S2000 Introduction
 aside: true
 categories:
-- S2000 
-feature_image: "https://picsum.photos/2560/600?image=872"
-
+- S2000
+feature_image: "/assets/pictures/DSC_0023.jpg"
 ---
 
 My S2000's Journey:

@@ -3,7 +3,7 @@ title: Wearables in Tele-Health Research Paper
 aside: true
 categories:
 - Research
-  feature_image: "https://picsum.photos/2560/600?image=872"
+feature_image: "/assets/pictures/DSC_0023.jpg"
 ---
 
 My Research Paper:

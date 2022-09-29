@@ -4,7 +4,7 @@ aside: true
 categories:
 - Raspberry Pi
 - Home Server
-feature_image: "https://picsum.photos/2560/600?image=872"
+feature_image: "/assets/pictures/DSC_0023.jpg"
 ---
 
 Home Server Project using Docker and a Raspberry Pi Part 1:
