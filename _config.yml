@@ -132,9 +132,9 @@ navigation_footer:
   #url: https://darn.es
 
 social_links: # Appears in sidebar. Set the urls then uncomment and comment out as desired
-  #Twitter: https://twitter.com/DavidDarnes
-  LinkedIn: https://www.linkedin.com/in/daviddarnes
-  GitHub: https://github.com/daviddarnes
+  #Twitter: https://twitter.com
+  LinkedIn: https://www.linkedin.com/in/jack-mazza/
+  GitHub: https://github.com/jmazza097
   #Facebook: https://www.facebook.com/jackmazza097/
   Twitch: https://www.twitch.tv/tonycannoli1
   #link: https://darn.es
