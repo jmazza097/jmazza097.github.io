@@ -1,8 +1,9 @@
 ---
 title: S2000 Introduction aside: true categories:
+aside: true
 categories:
-- s2000
-- Research feature_image: "https://picsum.photos/2560/600?image=872"
+- S2000 
+feature_image: "https://picsum.photos/2560/600?image=872"
 
 ---
 
