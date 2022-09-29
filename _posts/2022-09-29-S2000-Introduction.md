@@ -2,7 +2,7 @@
 title: S2000 Introduction
 aside: true
 categories:
-- S2000
+- s2000
 feature_image: "/assets/pictures/DSC_0023.jpg"
 ---
 

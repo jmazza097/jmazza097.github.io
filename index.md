@@ -14,7 +14,7 @@ excerpt: "Jack Mazza's blog for posting projects about, his cars, computers, lif
 ### Click To Jump to:
 
 * [Raspberry Pi Home Server](/categories#raspberry-pi/)
-* [The S2000 Build (coming soon)](/categories#S2000/)
+* [The S2000 Build](/categories#s2000)
 * [Wearables In Tele-Health](/categories#research)
 * [Gaming and Streaming Setup](/categories#gaming-setup)
 
