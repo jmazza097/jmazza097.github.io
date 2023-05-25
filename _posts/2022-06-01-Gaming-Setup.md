@@ -14,7 +14,7 @@ I have been building computers for over 8 years.  My dad was a huge influence on
 
 {% include figure.html image="/assets/pictures/JuniorSEtup.jpg" caption="Junior Year Setup in College Dorm" width="700" height="900" %}  
 
-Throughout college I had around the same setup.The cobbled together Six Flags PC and my old gaming PC a i5 4690k and GTX 1050ti acting as my streaming PC to make a pretty nice dual PC stream setup. At that point I started to learn about audio and how better hardware could take my gaming and streaming to the next level. 
+Throughout college I had around the same setup.The cobbled together Six Flags PC and my old gaming PC a i5 4690k and GTX 1050ti acting as my streaming PC to make a pretty nice dual PC stream setup. At that point I started to learn about audio and how better hardware could take my gaming and streaming to the next level. So continued learning and improving my setup.
 
 {% include figure.html image="/assets/pictures/Senior Setup.jpg" caption="Sernior Year Setup in College" width="700" height="900" %}  
 
