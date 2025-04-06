@@ -25,7 +25,7 @@ It has been a few years since I have given up rig an update. This year I bought 
 **Fans:** Noctua NF-P12 x4 <br />
 **Case:** Monotech Air 903 MAX <br />
 **Peripherals:** <br />
-**eyboard:** OLD Corsair K70 Cherry MX Blue <br />
+**Keyboard:** OLD Corsair K70 Cherry MX Blue <br />
 **Mouse:** BenQ Zowie EC1-C <br />
 **Audio:** Sennheiser 6xx Headphones with FiiO E10k Dac/ Amp Combo <br /> 
 **Mic:** Audio Technicia 2020 Condenser Mic with Behringer UMC-22, Newer Boom Arm <br />
