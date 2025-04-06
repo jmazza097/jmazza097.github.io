@@ -14,7 +14,7 @@ It has been a few years since I have given up rig an update. This year I bought 
 
 {% include figure.html image="/assets/pictures/gamingdesk.jpg" caption="Current gaming setup" width="700" height="900" %}  
 
-The specs are as follows:
+The specs are as follows: <br />
 CPU: Ryzen 7 7800x3D <br />
 Noctua NHD-15s Cooler <br />
 MOBO: Gigabyte B650 AORUS Elite AX V2 <br />
