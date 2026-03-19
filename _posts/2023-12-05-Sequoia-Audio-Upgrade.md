@@ -2,11 +2,12 @@
 title: Upgrading the Door Woofer on my Sequoia
 aside: true
 categories:
-- Cars
-feature_image: "/assets/pictures/DSC_0023.jpg"
+  - Cars
+feature_image: "/assets/pictures/PS1_1546.jpg"
 ---
 
 Upgrading my Sequoia Audio on The Cheap:
+
 <!-- this part ^^ is how much shows in the description of the post by using a parachgraph format it autmoatically pics how much to show -->
 <!-- more -->
 

@@ -11,29 +11,29 @@
 
 # 1. Files excluded from Jekyll builds
 exclude:
-- README.md
-- CODE_OF_CONDUCT.md
-- CONTRIBUTING.md
-- screenshot.png
-- LICENSE
-- CNAME
-- Gemfile
-- Gemfile.lock
-- alembic-jekyll-theme.gemspec
-- .jekyll-cache
+  - README.md
+  - CODE_OF_CONDUCT.md
+  - CONTRIBUTING.md
+  - screenshot.png
+  - LICENSE
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
+  - alembic-jekyll-theme.gemspec
+  - .jekyll-cache
 
 # 2. Installed Gems
 plugins:
-- jekyll-sitemap
-- jekyll-mentions
-- jekyll-paginate
-- jekyll-seo-tag
-- jekyll-redirect-from
-- jekyll-feed
-- jekyll-commonmark
-- jekyll-include-cache
-- jemoji
-- jekyll-remote-theme
+  - jekyll-sitemap
+  - jekyll-mentions
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-redirect-from
+  - jekyll-feed
+  - jekyll-commonmark
+  - jekyll-include-cache
+  - jemoji
+  - jekyll-remote-theme
 
 remote_theme: daviddarnes/alembic@main
 
@@ -43,20 +43,20 @@ paginate_path: blog/page:num # jekyll-paginate > blog page
 author: JackMazza # jekyll-seo-tag > default author
 social: # jekyll-seo-tag > social overrides
   name: Jack Mazza # jekyll-seo-tag > real name
-  links:  # jekyll-seo-tag > social aliases (sameAs)
+  links: # jekyll-seo-tag > social aliases (sameAs)
     - https://www.linkedin.com/in/jack-mazza
     - https://github.com/jmazza097
     - https://www.twitch.tv/tonycannoli1
 
 # markdown: CommonMark # Markdown parse settings, CommonMark performs slightly better an others in build time
 # commonmark:
-  # options: ["SMART", "FOOTNOTES"]
-  # extensions: ["strikethrough", "autolink", "table"]
+# options: ["SMART", "FOOTNOTES"]
+# extensions: ["strikethrough", "autolink", "table"]
 
 # 4. Jekyll settings
 sass:
   style: compressed # Style compression
-permalink: pretty  # Permalink style (/YYYY/MM/DD/page-name/)
+permalink: pretty # Permalink style (/YYYY/MM/DD/page-name/)
 excerpt_separator: <!-- more --> # Marks end of excerpt in posts
 timezone: United States # Timezone for blog posts and alike
 
@@ -73,19 +73,16 @@ collections:
 
 # 6. Jekyll collections settings
 defaults:
-  -
-    scope:
+  - scope:
       path: ""
     values:
-      image: "/assets/pictures/DSC_0023.jpg" # Default image for sharing
-  -
-    scope:
+      image: "/assets/pictures/PS1_1546.jpg" # Default image for sharing
+  - scope:
       path: ""
       type: "posts"
     values:
       layout: post # Set the default layout for posts
-  -
-    scope:
+  - scope:
       path: ""
       type: "pages"
     values:
@@ -110,26 +107,26 @@ css_inline: true # Will insert all styles into a single <style> block in the <he
 
 # 8. Site favicons & manifest icons
 favicons: # Favicons are also used in the manifest file. Syntax is 'size: path'
-  16: '/assets/logos/logo@16px.png'
-  32: '/assets/logos/logo@32px.png'
-  96: '/assets/logos/logo@96px.png'
-  120: '/assets/logos/logo@120px.png'
-  144: '/assets/logos/logo@144px.png'
-  180: '/assets/logos/logo@180px.png'
-  512: '/assets/logos/logo@512px.png'
-  1024: '/assets/logos/logo@1024px.png'
+  16: "/assets/logos/logo@16px.png"
+  32: "/assets/logos/logo@32px.png"
+  96: "/assets/logos/logo@96px.png"
+  120: "/assets/logos/logo@120px.png"
+  144: "/assets/logos/logo@144px.png"
+  180: "/assets/logos/logo@180px.png"
+  512: "/assets/logos/logo@512px.png"
+  1024: "/assets/logos/logo@1024px.png"
 
 # 9. Site navigation
 navigation_header:
-- title: Home
-  url: /
-- title: Blog
-  url: /blog/
-- title: Categories
-  url: /categories/
+  - title: Home
+    url: /
+  - title: Blog
+    url: /blog/
+  - title: Categories
+    url: /categories/
 navigation_footer:
-- title: Created by Jack Mazza
-  #url: https://darn.es
+  - title: Created by Jack Mazza
+    #url: https://darn.es
 
 social_links: # Appears in sidebar. Set the urls then uncomment and comment out as desired
   #Twitter: https://twitter.com

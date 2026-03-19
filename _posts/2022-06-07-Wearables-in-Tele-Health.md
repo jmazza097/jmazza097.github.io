@@ -2,11 +2,12 @@
 title: Wearables in Tele-Health Research Paper
 aside: true
 categories:
-- Research
-feature_image: "/assets/pictures/DSC_0023.jpg"
+  - Research
+feature_image: "/assets/pictures/PS1_1546.jpg"
 ---
 
 My Research Paper:
+
 <!-- this part ^^ is how much shows in the description of the post by using a parachgraph format it autmoatically pics how much to show -->
 <!-- more -->
 

@@ -2,11 +2,12 @@
 title: Evaporator Core Removal
 aside: true
 categories:
-- S2000
-feature_image: "/assets/pictures/DSC_0023.jpg"
+  - S2000
+feature_image: "/assets/pictures/PS1_1546.jpg"
 ---
 
 Removing the A/C Evaporator Core from the Blower Box inside my S2000:
+
 <!-- this part ^^ is how much shows in the description of the post by using a parachgraph format it autmoatically pics how much to show -->
 <!-- more -->
 

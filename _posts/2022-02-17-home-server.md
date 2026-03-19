@@ -2,12 +2,13 @@
 title: Home Server with Raspberry Pi
 aside: true
 categories:
-- Raspberry Pi
-- Home Server
-feature_image: "/assets/pictures/DSC_0023.jpg"
+  - Raspberry Pi
+  - Home Server
+feature_image: "/assets/pictures/PS1_1546.jpg"
 ---
 
 Home Server Project using Docker and a Raspberry Pi Part 1:
+
 <!-- this part ^^ is how much shows in the description of the post by using a parachgraph format it autmoatically pics how much to show -->
 <!-- more -->
 
