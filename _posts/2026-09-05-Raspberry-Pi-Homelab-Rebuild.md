@@ -1,0 +1,137 @@
+---
+title: Raspberry Pi Homelab Rebuild
+aside: true
+categories:
+  - raspberry pi
+  - home server
+feature_image: "/assets/pictures/jigglejointpi-homelab-architecture.png"
+---
+
+Rebuilding my Raspberry Pi homelab after the SD card failed:
+
+<!-- this part ^^ is how much shows in the description of the post by using a paragraph format it automatically picks how much to show -->
+<!-- more -->
+
+After roughly five years of service, the SD card in my Raspberry Pi finally gave up. My MacBook would not recognize it, and the Pi would no longer boot. That card held my Pi-hole, Portainer, Uptime Kuma, and LinkStack setup, so this was a good reminder that a working server is not the same thing as a recoverable server.
+
+I rebuilt everything on a Raspberry Pi 4, but I did not want to recreate the old design exactly. The goal this time was to make the system easier to understand, update, troubleshoot, and restore.
+
+{% include figure.html image="/assets/pictures/jigglejointpi-homelab-architecture.png" caption="JiggleJointPi homelab architecture" width="700" height="431" %}
+
+## The new design
+
+The Pi now runs Raspberry Pi OS Lite 64-bit. Docker does not replace the host operating system, so the Lite image provides the small, headless Linux base while Docker Compose manages the applications.
+
+The services are:
+
+- Pi-hole for network-wide DNS filtering
+- Portainer for a visual view of Docker
+- Uptime Kuma for service monitoring and a public status page
+- LinkStack for my public links page
+- Cloudflared for public access through Cloudflare Tunnel
+- Tailscale for private remote administration
+- Restic for encrypted backups to a 16 GB USB drive
+- Healthchecks.io for an external heartbeat on the nightly backup
+
+All of the Compose files, scripts, and bind-mounted application data live under `/opt/homelab`. Portainer is useful for checking what is running, but the Compose files are the source of truth. That distinction should make another rebuild much easier.
+
+## Keeping DHCP on the router
+
+My previous Pi-hole installation also handled DHCP. This time I left DHCP on my TP-Link Archer A6 router and configured the router to hand out the Pi's reserved address, `192.168.0.195`, as the DNS server.
+
+That separation reduces the blast radius of a Pi failure. If Pi-hole is unavailable, DNS resolution will fail until I fix it, but devices can still join the network and receive IP addresses from the router. I also avoided setting a public secondary DNS because many clients will use it whenever they want, which would bypass Pi-hole filtering.
+
+## Running the applications with Docker Compose
+
+Pi-hole, Portainer, Uptime Kuma, LinkStack, and cloudflared each have their own Compose directory. Every container uses `restart: unless-stopped`, and Docker itself is enabled at boot. A controlled reboot confirmed that the containers returned without manual work.
+
+The local services use predictable ports:
+
+- Pi-hole administration: `8080`
+- Portainer: `9443`
+- Uptime Kuma: `3001`
+- LinkStack: `8082`
+- DNS: `53` over TCP and UDP
+
+Cloudflared is different. It does not need an inbound web port. It establishes an outbound connection to Cloudflare and sends requests to LinkStack and Kuma across a shared Docker network called `public_web`.
+
+## Replacing NGINX and Certbot with Cloudflare Tunnel
+
+My older LinkStack setup used NGINX, Certbot, port 80, certificate challenges, DNS changes, and Cloudflare proxy settings. It worked, but it took too many moving pieces to keep the certificate and reverse proxy happy.
+
+The new setup uses a single Cloudflare Tunnel with two published application routes:
+
+| Public hostname | Internal service |
+| --- | --- |
+| `links.jackmazza.xyz` | `http://linkstack:80` |
+| `status.jackmazza.xyz` | `http://uptime-kuma:3001` |
+
+Cloudflare handles the public HTTPS connection. There are no router port forwards, no public origin IP record for these services, no Certbot renewal, and no NGINX Proxy Manager container.
+
+LinkStack needed `FORCE_HTTPS=true` in its internal configuration so it would generate HTTPS asset URLs correctly through the tunnel. The raw local HTTP page can look unstyled with that setting, but the public HTTPS page works correctly and is the preferred administration path.
+
+One useful lesson from troubleshooting the tunnel was that the Docker command Cloudflare displays contains both the command and the token. When the Compose file passes the token through the `TUNNEL_TOKEN` environment variable, the command should simply be `tunnel run`. Passing the token twice causes cloudflared to complain that the tunnel command accepts only one argument.
+
+## Private access with Tailscale
+
+I installed Tailscale directly on the Raspberry Pi host, then joined my MacBook and phone to the same tailnet. This gives me private access to SSH, Pi-hole, Portainer, and the Kuma administration interface without publishing those services to the internet.
+
+I tested it from both the laptop and phone. The main security boundary is simple: the LinkStack page and read-only status page are public, while administration stays on the LAN or Tailscale.
+
+## Monitoring and the problem with self-monitoring
+
+Uptime Kuma checks Pi-hole, Portainer, LinkStack, DNS, and the public Cloudflare routes. Monitoring the public LinkStack URL is also the practical way to monitor cloudflared because the connector does not expose an application port. If the tunnel goes down, the public URL fails.
+
+There is an obvious weakness, though: Kuma cannot notify me while Kuma or the entire Pi is offline. To cover that gap, I added an external Healthchecks.io check to the nightly backup service. The systemd unit sends a start signal before the backup and reports the process exit status when it finishes. If the job fails, never starts, takes too long, or the Pi remains offline, Healthchecks can notify me independently through email and Discord.
+
+For immediate notification that the public status page itself is down, an additional external HTTP monitor would be the next layer.
+
+## Encrypted backups to a USB drive
+
+I found a 16 GB USB drive and reformatted it as ext4. It mounts at `/mnt/homelab-backup` using its filesystem UUID, which is more reliable than depending on a device name such as `/dev/sda1`.
+
+Restic stores encrypted snapshots on that drive. The backup script first verifies that the USB is actually mounted. This is important because a missing mount could otherwise make the backup write into the empty mount directory on the SD card and fill the root filesystem.
+
+The job briefly stops the stateful containers, exports the LinkStack named volume, backs up `/opt/homelab` and the systemd backup units, restarts the containers, applies retention, and runs a repository integrity check.
+
+The current retention policy keeps:
+
+- 7 daily snapshots
+- 4 weekly snapshots
+- 3 monthly snapshots
+
+The first backup processed about 344 MB and stored about 141 MB after compression and deduplication. Restic reported no repository errors. I also saved the Restic password outside the Pi because an encrypted backup without its password is not recoverable.
+
+The USB protects against another SD card failure, but it is not a complete off-site strategy. Since both devices are attached to the same Pi, a future improvement would be copying snapshots or critical exports to a separate location.
+
+## A controlled update process
+
+I deliberately skipped automatic container updating. Pi-hole is network infrastructure, cloudflared provides public access, Kuma provides monitoring, and Restic protects recovery. Automatically changing all of them in the background would make failures harder to explain.
+
+The maintenance process is straightforward:
+
+1. Review the relevant release notes.
+2. Run and verify a fresh backup.
+3. Pull and recreate the Compose services.
+4. Apply Raspberry Pi OS updates.
+5. Reboot and validate Docker, DNS, Tailscale, the public URLs, the USB mount, and the backup timer.
+
+This takes a little more attention than Watchtower, but it gives me a known recovery point before anything changes.
+
+## What I would do differently next time
+
+The biggest lesson is to design recovery at the same time as the server. The useful parts of this rebuild were not just reinstalling applications. They were separating DHCP from DNS, keeping configuration under one directory, using Compose as the source of truth, removing unnecessary public ports, adding private remote access, creating encrypted backups, and monitoring those backups from outside the Pi.
+
+The rebuilt homelab is still intentionally small. It does not need Kubernetes, a complicated reverse-proxy chain, or unattended updates. It needs predictable configuration, clear boundaries, tested backups, and a short checklist that tells me whether everything returned after a reboot.
+
+That is the difference between a Raspberry Pi that happens to be running and a home server I can maintain.
+
+## References
+
+- [Raspberry Pi OS documentation](https://www.raspberrypi.com/documentation/computers/os.html)
+- [Docker Engine on Debian](https://docs.docker.com/engine/install/debian/)
+- [Pi-hole Docker documentation](https://docs.pi-hole.net/docker/)
+- [Cloudflare Tunnel documentation](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/)
+- [Tailscale Linux installation](https://tailscale.com/docs/install/linux)
+- [Restic documentation](https://restic.readthedocs.io/en/stable/)
+- [Healthchecks.io systemd monitoring](https://healthchecks.io/docs/monitoring_systemd_tasks/)
