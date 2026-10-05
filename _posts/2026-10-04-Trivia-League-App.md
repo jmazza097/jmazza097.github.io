@@ -1,17 +1,13 @@
 ---
 title: "Building Trivia League: Django, Double Elimination, and a Raspberry Pi Production Pipeline"
-description: "How I built and deployed a self-hosted live trivia tournament system with Django, PostgreSQL, Docker, Cloudflare Tunnel, and GitHub Actions."
-date: 2026-10-04
-tags:
-  - django
-  - raspberry-pi
-  - docker
-  - postgresql
-  - github-actions
-  - cloudflare
-  - homelab
-  - python
-draft: true
+description: "How I built and deployed a self-hosted live trivia tournament system with Django, PostgreSQL, Docker, Cloudflare ---
+aside: true
+categories:
+  - Raspberry Pi
+  - Home Server
+feature_image: "/assets/pictures/PS1_1546.jpg"
+---
+
 ---
 
 # Building Trivia League: Django, Double Elimination, and a Raspberry Pi Production Pipeline

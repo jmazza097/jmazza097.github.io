@@ -2,7 +2,7 @@
 title: Evaporator Core Removal
 aside: true
 categories:
-  - S2000
+  - s2000
 feature_image: "/assets/pictures/PS1_1546.jpg"
 ---
 
