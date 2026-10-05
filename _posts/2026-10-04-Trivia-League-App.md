@@ -1,6 +1,5 @@
 ---
 title: "Building Trivia League: Django, Double Elimination, and a Raspberry Pi Production Pipeline"
-description: "How I built and deployed a self-hosted live trivia tournament system with Django, PostgreSQL, Docker, Cloudflare ---
 aside: true
 categories:
   - Raspberry Pi
