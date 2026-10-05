@@ -7,9 +7,10 @@ categories:
 feature_image: "/assets/pictures/PS1_1546.jpg"
 ---
 
----
+Building Trivia League, a self-hosted trivia tournament app running on my Raspberry Pi:
 
-# Building Trivia League: Django, Double Elimination, and a Raspberry Pi Production Pipeline
+<!-- This paragraph above controls how much shows in the post description. -->
+<!-- more -->
 
 I wanted a better way to run live trivia nights.
 
