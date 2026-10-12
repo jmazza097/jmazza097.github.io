@@ -82,6 +82,65 @@ Nextcloud uses an app password and WebDAV under `Master Trivia/Trivia Vault`.
 
 Copies currently happen during the upload request. The browser uses asynchronous requests, but that does not make the server work a durable background job. A long copy can still encounter a timeout, and the saved status is the last result rather than continuous monitoring of the remote files.
 
+## Moving Google authorization into production
+
+The first deployed upload exposed an authorization problem: Nextcloud succeeded,
+but Google failed with `RefreshError`. A targeted check inside the container
+returned `invalid_grant`, meaning Google rejected the refresh token.
+
+The OAuth application was still in **Testing**. Google documents a seven-day
+refresh-token lifetime for external Testing apps requesting Drive access.
+`invalid_grant` can also mean a revoked token, so the error alone did not prove
+which event invalidated this particular token.
+
+I moved the OAuth app to **In production** and generated a fresh token while
+keeping the limited `drive.file` scope. Publishing does not broaden that scope
+or make the Vault website public.
+
+The setup sequence is:
+
+1. Complete Google Auth Platform's **Branding** fields: app name, support and
+   developer contact emails, homepage, and a public privacy-policy URL. The
+   privacy URL needs to contain an actual policy accessible without signing in.
+2. Under **Audience**, publish the app and confirm **In production**. Publishing
+   status and brand verification are separate; follow any verification prompts.
+3. Run the existing `generate_google_token.py` authorization helper on the Mac
+   with its Google Python environment. Sign in and authorize `drive.file` only.
+4. Transfer the new `google_token.json` to a temporary location on the Pi.
+5. Install it as the production token, preserving the container's read access:
+
+```bash
+sudo install -o root -g 10001 -m 640 \
+  ~/trivia-vault-google-token.new.json \
+  /opt/homelab/secrets/trivia-vault-google-token.json
+
+rm ~/trivia-vault-google-token.new.json
+```
+
+Recreate the container so its individual file bind mount sees the replacement:
+
+```bash
+cd /opt/homelab/stacks/trivia-vault
+
+docker compose -f compose.production.yaml up \
+  -d --no-deps --pull never --force-recreate \
+  --wait --wait-timeout 120 app
+```
+
+Then use **Copy / retry** on the existing game. A new upload is unnecessary;
+Nextcloud's successful copy is skipped. The retry reported both providers synced.
+It also exposed a display bug: the result message updated while the original
+Google label still showed failed. The follow-up UI fix updates both labels from
+the retry response.
+
+Production refresh tokens are not guaranteed to last forever: revocation and
+other account or OAuth changes can still invalidate them. See
+[Google's refresh-token expiration guidance](https://developers.google.com/identity/protocols/oauth2#expiration).
+
+For the authentication setup, I found [this video walkthrough](https://www.youtube.com/watch?v=wdmbAo02ktQ)
+particularly helpful. I am keeping the link here as a reference alongside the
+project-specific steps above.
+
 ## From GitHub to the Pi
 
 The production branch is `master`. Pull requests run the automated tests on GitHub-hosted runners. Once merged, the workflow builds a `linux/arm64` image, publishes it to GHCR with the commit SHA as its tag, and deploys it through a dedicated Pi runner.
@@ -143,9 +202,9 @@ This choice has a recovery tradeoff: the Pi's cloud tracking files are not inclu
 
 ## What still needs finishing
 
-The biggest operational follow-up is guarded startup after a reboot. Automatic container restart is currently disabled because I do not want Docker starting against an unmounted flash-drive path. The next step is a boot service that requires the storage mount before starting the stack, followed by a reboot test.
+Guarded startup is now installed on the Pi and passed a reboot test with the flash drive attached. A systemd service requires the mount and starts the cached image without a registry download. Docker automatic restart stays disabled so it cannot bypass that check. Uptime Kuma monitors the internal health endpoint. Booting without the flash drive still needs its own maintenance-window test.
 
-The remaining end-to-end checks are signing in through the public hostname, confirming an unapproved session cannot reach the Vault, and uploading a disposable game through the deployed app to verify both cloud copies. A healthy container proves the process responds; it does not prove those external connections work.
+The deployed upload and retry reported successful copies to both providers after replacing the Google token. The remaining checks include verifying the remote files themselves and confirming an unapproved session cannot reach the Vault. A healthy container proves the process responds; it does not prove those external connections work.
 
 Longer term, a durable background queue would make larger imports less dependent on request timeouts. For now, the foundation is small enough to understand: presentations and JSON on disk, a straightforward Python app, explicit remote copies, and a deployment pipeline that runs on the same Pi as the rest of the homelab.
 
